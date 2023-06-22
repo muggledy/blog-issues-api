@@ -31,10 +31,8 @@ def github_issuse():
                 label_plus = ''
             gh_issue_api_link = f"https://github.com/{config['issues']['repo']}/issues?q=is%3A{config['issues']['state']}{str(label_plus)}&page={str(number)}"'''
             gh_issue_api_link = f"https://api.github.com/repos/{config['issues']['repo']}/issues?sort=updated&state={config['issues']['state']}&page={str(number)}&per_page=100&labels={config['issues']['label']}"
-            github = request.get_data(gh_issue_api_link)
-            if github == '[]':
-                break
             print(gh_issue_api_link)
+            github = request.get_data(gh_issue_api_link)
             gh_issue_data = json.loads(github)
             print(gh_issue_data)
             data_pool.extend(gh_issue_data)
