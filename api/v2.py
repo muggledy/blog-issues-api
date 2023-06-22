@@ -41,11 +41,11 @@ def github_json(owner, repo, branch, path) -> requests.Response:
 @app.route('/v2/<owner>/<repo>', methods=['GET'])
 @app.route('/v2/<owner>/<repo>/<branch>', methods=['GET'])
 @app.route('/v2/<owner>/<repo>/<branch>/<path:path>', methods=['GET'])
-def start_owner_repo_branch(owner, repo='issues-api', branch='main', path='generator/output/v2/data.json'):
+def start_owner_repo_branch(owner, repo='blog-issues-api', branch='main', path='generator/output/v2/data.json'):
     """获取友链信息
 
     :param owner: GitHub 用户名(必填)
-    :param repo: GitHub 仓库名(默认为: issues-api)
+    :param repo: GitHub 仓库名(默认为: blog-issues-api)
     :param branch: GitHub 仓库分支名(默认为: main)
     :return: Response
     """

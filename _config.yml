@@ -5,6 +5,6 @@ request:
 
 # 要抓取的 issues 配置
 issues:
-  repo: celestezj/issues-api
+  repo: muggledy/blog-issues-api
   state: open
   label: active
