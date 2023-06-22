@@ -19,10 +19,12 @@ def github_json(owner, repo, branch) -> requests.Response:
     """
     source_url = f'https://raw.githubusercontent.com/{owner}/{repo}/{branch}/generator/output/v1/data.json'
     try:
-        req = requests.get(source_url)
+        '''req = requests.get(source_url)
         resp = make_response(jsonify(
             {'code': 0, 'source_url': source_url,
-             'content': json.loads(req.content.decode()) if req.content else []}))
+             'content': json.loads(req.content.decode()) if req.content else []}))'''
+        with open('/generator/output/v1/data.json', 'r') as f:
+            resp = make_response(f.read())
         resp.status = '200'
     except requests.exceptions.ConnectionError:
         resp = make_response(jsonify({'code': 500, 'content': '连接超时'}))

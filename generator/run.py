@@ -24,19 +24,29 @@ def github_issuse():
     config = load_config()
     try:
         for number in range(1, 100):
-            print(number)
+            '''
             if config['issues']['label']:
                 label_plus = '+label%3A' + config['issues']['label']
             else:
                 label_plus = ''
-            github = request.get_data(
-                f"https://github.com/{config['issues']['repo']}/issues?q=is%3A{config['issues']['state']}{str(label_plus)}&page={str(number)}")
-            soup = BeautifulSoup(github, 'html.parser')
+            gh_issue_api_link = f"https://github.com/{config['issues']['repo']}/issues?q=is%3A{config['issues']['state']}{str(label_plus)}&page={str(number)}"'''
+            gh_issue_api_link = f"https://api.github.com/repos/{config['issues']['repo']}/issues?sort=updated&state={config['issues']['state']}&page={str(number)}&per_page=100&labels={config['issues']['label']}"
+            github = request.get_data(gh_issue_api_link)
+            if github == '[]':
+                break
+            print(gh_issue_api_link)
+            gh_issue_data = json.loads(github)
+            print(gh_issue_data)
+            data_pool.extend(gh_issue_data)
+            if len(gh_issue_data) < 100:
+                break
+            '''soup = BeautifulSoup(github, 'html.parser')
             main_content = soup.find_all('div', {'aria-label': 'Issues'})
             linklist = main_content[0].find_all('a', {'class': 'Link--primary'})
             if len(linklist) == 0:
                 print('> end')
                 break
+            print(gh_issue_api_link)
             for item in linklist:
                 issueslink = baselink + item['href']
                 issues_page = request.get_data(issueslink)
@@ -50,6 +60,7 @@ def github_issuse():
                         data_pool.append(source)
                 except:
                     continue
+            '''
     except:
         print('> end')
 
