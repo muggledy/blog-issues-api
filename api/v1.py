@@ -4,6 +4,8 @@ import json
 import requests
 from flask import Flask, jsonify, make_response
 
+import os.path as osp
+
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
@@ -23,7 +25,7 @@ def github_json(owner, repo, branch) -> requests.Response:
         resp = make_response(jsonify(
             {'code': 0, 'source_url': source_url,
              'content': json.loads(req.content.decode()) if req.content else []}))'''
-        with open('/generator/output/v1/data.json', 'r') as f:
+        with open(osp.normpath(osp.join(osp.dirname(osp.realpath(__file__)), '../generator/output/v1/data.json')), 'r') as f:
             resp = make_response(f.read())
         resp.status = '200'
     except requests.exceptions.ConnectionError:
