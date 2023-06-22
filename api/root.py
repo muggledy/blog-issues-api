@@ -6,4 +6,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return redirect('https://github.com/muggledy/issues-api')
+    return redirect('https://github.com/muggledy/blog-issues-api')
